@@ -1,73 +1,87 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Event Messenger App
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
+Event Messenger is a scalable and well-abstracted NestJS-based application that automatically sends event-based messages to users, such as birthday greetings. The system is designed with future extensibility in mind, allowing additional event types (e.g., anniversaries) to be seamlessly integrated.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The application ensures reliability by recovering and sending any unsent messages if the service experiences downtime. For testing purposes, SQLite is used as the database.
 
-## Description
+## Short Brief
+- **Automated Birthday Greetings**: Sends birthday messages to users automatically.
+- **Scalability & Abstraction**: Designed with a modular architecture to support additional event types in the future.
+- **Failure Recovery**: Recovers and sends unsent messages after a service interruption.
+- **NestJS Framework**: Leverages the benefits of NestJS for a well-structured and maintainable codebase.
+- **SQLite for Testing**: Uses SQLite for lightweight database operations during testing.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## This app using NestJS
+NestJS is chosen for its structured and scalable architecture. The key advantages include:
+- **Modularity**: Promotes separation of concerns through modules, making the system easier to extend.
+- **Dependency Injection**: Enhances testability and maintainability.
+- **Built-in Middleware Support**: Facilitates request processing and logging.
+- **Powerful CLI**: Simplifies project setup and management.
+- **Typescript Support**: Ensures type safety and better developer experience.
 
 ## Installation
+### Prerequisites
+- Node.js (LTS version recommended)
+- npm or yarn
+- SQLite (for testing)
 
-```bash
-$ npm install
-```
+### Steps
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/manggiperdana/event-messager-app
+   cd event-messager
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the application with dev log:
+   ```sh
+   npm run start:dev
+   ```
+4. Once the app running it's will generate sqlite file:
+   ```sh
+   event-messager-app.db
+   ```
+## API Endpoint Usage
+1. Create User:
+   ```sh
+   Method : POST
+   Endpoint : http://localhost:3000/user
+   Body Structure: {
+      "firstName":"YourFirstName",
+      "lastName":"YourLastName",
+      "email":"youremail@email.com",
+      "birthday":"1989-01-31",
+      "location":"Asia/Jakarta"
+    }
+   ```
+2. Update User:
+   ```sh
+   Method : PUT
+   Endpoint : http://localhost:3000/user/userId
+   Body Structure: {
+      "firstName":"YourFirstName",
+      "lastName":"YourLastName",
+      "email":"youremail@email.com",
+      "birthday":"1989-01-31",
+      "location":"Asia/Jakarta"
+    }
+   ```
 
-## Running the app
+## Features
+- Users are registered in the database with their birthdate.
+- The service checks daily for users' birthdays and sends messages accordingly.
+- If the service was down, it will send any missed messages upon recovery.
 
-```bash
-# development
-$ npm run start
+## Extensibility
+- New event types can be added by creating additional event modules.
+- The event processing logic is abstracted, making it easy to integrate custom messaging strategies.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Contributing
+Contributions are welcome! Please submit a pull request or open an issue for discussion.
 
 ## License
+This project is licensed under the MIT License.
 
-Nest is [MIT licensed](LICENSE).
